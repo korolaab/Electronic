@@ -1,0 +1,78 @@
+
+
+from pydrive.drive import GoogleDrive
+from pydrive.auth import GoogleAuth
+
+
+
+
+def auth():
+    gauth = GoogleAuth()
+    # Create local webserver and auto handles authentication.
+    gauth.CommandLineAuth()
+
+
+
+    drive = GoogleDrive(gauth)
+    return drive
+
+
+           
+           
+        
+
+
+
+#if(fiz_num > fiz):
+    
+
+def glazovikovirivatel(drive):  
+    subject = "0"
+    f = open("numbers",'r')
+    numbers = " "
+    numbers = f.read()
+    num = [ '' , '' ]
+    n = 0
+    for i in numbers: 
+        if( i != '\n' ):
+            num[n] = num[n] + i
+        else:
+            n = n + 1
+    fiz = int(num[0])
+    info = int(num[1])
+    print(fiz , info)   
+    f.close()
+
+    fiz_list = drive.ListFile({'q': "'1bjmpOkawtodicQ25ZWWp02p6B9kla9qb' in parents and trashed=false"}).GetList()
+    info_list = drive.ListFile({'q': "'1dXuvEiVZdUCjWcoQPwYc7EvpKOU1PEG1' in parents and trashed=false"}).GetList()
+
+    fiz_num = 0
+    info_num = 0
+
+    for files in fiz_list:        
+        fiz_num += 1
+        
+    for files in info_list:        
+        info_num += 1
+    
+    
+    if(info_num > info and fiz_num == fiz):
+        subject = ["i", "0"]
+    
+    if(fiz_num > fiz and fiz_num == fiz):
+        subject = ["0", "f"]
+    
+    if(info_num > info and fiz_num > fiz):
+        subject = ["i", "f"]
+
+    if(info_num > info or fiz_num > fiz):
+        f = open("numbers","w")
+        
+    
+        f.write(str(fiz_num) +'\n')
+        f.write(str(info_num) + '\n')
+        f.close()
+        
+        return True
+    return subject
+glazovikovirivatel(drive)
